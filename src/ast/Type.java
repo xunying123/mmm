@@ -7,7 +7,7 @@ public class Type {
 
     public Type(String name_) {
         this.name = name_;
-        if ((!name.equals("VOID")) && (!name.equals("INT")) && (!name.equals("NULL")) && (!name.equals("BOOL")) && (!name.equals("THIS")) && (!name.equals("STRING")))
+        if ((!name.equals("void")) && (!name.equals("int")) && (!name.equals("null")) && (!name.equals("bool")) && (!name.equals("this")) && (!name.equals("string")))
             Class = true;
     }
 
@@ -24,5 +24,16 @@ public class Type {
 
     public boolean isReference() {
         return dim>0 || Class;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj==null) return false;
+        if(obj==this) return true;
+        if(!(obj instanceof Type)) return false;
+        Type type_ = (Type) obj;
+        if(this.dim !=type_.dim) return false;
+        if(!this.name.equals(type_.name)) return false;
+        return true;
     }
 }

@@ -14,16 +14,16 @@ public class TypeNode extends AstNode{
     public TypeNode(Position pos_,String name_) {
         super(pos_);
         switch (name_) {
-            case "INT" -> {
+            case "int" -> {
                 this.type = Int;
             }
-            case "VOID" -> {
+            case "void" -> {
                 this.type = Void;
             }
-            case "STRING" -> {
+            case "string" -> {
                 this.type = string;
             }
-            case "BOOL" -> {
+            case "bool" -> {
                 this.type = Bool;
             }
             default -> this.type = new Type(name_);
@@ -34,16 +34,16 @@ public class TypeNode extends AstNode{
         super(pos_);
         if(dim_==0) {
             switch (name_) {
-                case "INT" -> {
+                case "int" -> {
                     this.type = Int;
                 }
-                case "VOID" -> {
+                case "void" -> {
                     this.type = Void;
                 }
-                case "STRING" -> {
+                case "string" -> {
                     this.type = string;
                 }
-                case "BOOL" -> {
+                case "bool" -> {
                     this.type = Bool;
                 }
                 default -> this.type = new Type(name_);

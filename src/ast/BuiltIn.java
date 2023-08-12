@@ -3,12 +3,12 @@ package src.ast;
 import src.ast.astnode.definition.FunctionDefinition;
 
 public interface BuiltIn {
-    Type Void = new Type("VOID");
-    Type Int = new Type("INT");
-    Type Null = new Type("NULL");
-    Type Bool = new Type("BOOL");
-    Type string = new Type("STRING");
-    Type This = new Type("THIS");
+    Type Void = new Type("void");
+    Type Int = new Type("int");
+    Type Null = new Type("null");
+    Type Bool = new Type("bool");
+    Type string = new Type("string");
+    Type This = new Type("this");
 
     FunctionDefinition PrintFunc = new FunctionDefinition(null, "print", Void, string, 1);
     FunctionDefinition PrintlnFunc = new FunctionDefinition(null, "println", Void, string, 1);

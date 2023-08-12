@@ -99,7 +99,7 @@ public class AstBuilder extends MxParserBaseVisitor<AstNode> {
         if(ctx.forVar().variableDeclaration()!=null) {
             foor.var = (VariableDeclaration) visit(ctx.forVar().variableDeclaration());
         } else {
-            foor.exp1 = (ExpressionNode) visit(ctx.forVar().expressionStatement());
+            foor.exp1 = ((Expression) visit(ctx.forVar().expressionStatement())).express;
         }
         if (ctx.statement().blockStatement() != null) {
             foor.sta = ((BlockStatement) visit(ctx.statement().blockStatement())).state;
@@ -109,7 +109,7 @@ public class AstBuilder extends MxParserBaseVisitor<AstNode> {
         if(ctx.expression()!=null) {
             foor.exp2 =(ExpressionNode) visit(ctx.expression());
         }
-        foor.loopExp=(ExpressionNode) visit(ctx.expressionStatement());
+        foor.loopExp=((Expression) visit(ctx.expressionStatement())).express;
         return foor;
     }
 
@@ -187,13 +187,16 @@ public class AstBuilder extends MxParserBaseVisitor<AstNode> {
         if (ctx.statement(0).blockStatement()!=null) {
             iff.trueS = ((BlockStatement)visit (ctx.statement(0).blockStatement())).state;
         } else {
-            iff.trueS.add((BlockStatement)visit (ctx.statement(0)));
+            iff.trueS.add((Statements) visit (ctx.statement(0)));
         }
         if(ctx.Else()!=null) {
-            iff.falseS = ((BlockStatement)visit (ctx.statement(1).blockStatement())).state;
-        } else {
-            iff.falseS.add((BlockStatement)visit (ctx.statement(1)));
+            if(ctx.statement(1).blockStatement()!=null) {
+                iff.falseS = ((BlockStatement)visit (ctx.statement(1).blockStatement())).state;
+            } else {
+                iff.falseS.add((Statements) visit (ctx.statement(1)));
+            }
         }
+
         return iff;
     }
 
@@ -203,7 +206,7 @@ public class AstBuilder extends MxParserBaseVisitor<AstNode> {
         if(ctx.statement().blockStatement()!=null) {
             whi.sta = ((BlockStatement)visit (ctx.statement().blockStatement())).state;
         } else {
-            whi.sta.add((BlockStatement)visit (ctx.statement()));
+            whi.sta.add((Statements) visit (ctx.statement()));
         }
         return whi;
     }
@@ -275,13 +278,14 @@ public class AstBuilder extends MxParserBaseVisitor<AstNode> {
     public AstNode visitFileAnalyze(MxParser.FileAnalyzeContext ctx) {
         FileAnalyze fil = new FileAnalyze(new Position(ctx));
         for(var vv : ctx.children) {
-            if (vv instanceof ClassDefinition) {
+            if (vv instanceof MxParser.ClassDeclarationContext) {
                 fil.allFile.add((ClassDefinition) visit(vv));
-            } else if (vv instanceof FunctionDefinition) {
+            } else if (vv instanceof MxParser.FunctionDeclarationContext) {
                 fil.allFile.add((FunctionDefinition) visit(vv));
-            } else if (vv instanceof VariableDeclaration) {
+            } else if (vv instanceof MxParser.VariableDeclarationContext) {
                 fil.allFile.add((VariableDeclaration) visit(vv));
             }
+
         }
         return fil;
     }
