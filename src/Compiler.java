@@ -15,11 +15,12 @@ import java.io.IOException;
 
 public class Compiler {
     public static void main(String[] args) throws IOException {
+        System.out.println("Semantic check");
+        
         if (args.length == 0) {
             System.out.println("Usage: java Compiler <filename>");
             return;
         } else if (args[0].equals("-fsyntax-only")) {
-            System.out.println("Semantic check");
             CharStream input = CharStreams.fromStream(System.in);
             MxLexer lexer = new MxLexer(input);
             lexer.removeErrorListeners();
