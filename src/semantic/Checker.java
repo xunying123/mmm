@@ -148,6 +148,9 @@ public class Checker implements Visitor, BuiltIn {
                 node.type = Bool;
                 return;
             } else if (!node.leftNode.type.equals(node.rightNode.type)) {
+                System.out.print(node.leftNode.type.name);
+                System.out.print(node.leftNode.type.dim);
+                System.out.print(node.rightNode.type.name);
                 throw new eError(node.pos, "wrong type");
             }
         }
@@ -193,7 +196,7 @@ public class Checker implements Visitor, BuiltIn {
         if(node.leftNode.type.equals(Void) || node.rightNode.type.equals(Void)) {
             throw new eError(node.pos,"wrong expression");
         }
-        if((!node.leftNode.type.equals(node.rightNode.type)) && ((!node.leftNode.type.isReference()) || (!node.rightNode.type.isReference()))) {
+        if((!node.leftNode.type.equals(node.rightNode.type)) && ((!node.leftNode.type.isReference()) || (!node.rightNode.type.equals(Null)))) {
             throw new eError(node.pos,"mismatch");
         }
         node.type=node.leftNode.type;
@@ -207,7 +210,10 @@ public class Checker implements Visitor, BuiltIn {
         if(node.obj.type==null) {
             throw new eError(node.pos,"wrong expression");
         }
+
         if(!node.obj.type.isReference() && !node.obj.type.equals(This) && !node.obj.type.equals(string)) {
+           System.out.print(node.obj.type.name);
+           System.out.print(node.obj.type.Class);
             throw new eError(node.pos,"mismatch");
         }
         var cla = node.obj.type.equals(This)?current.inCla:glo.getCla(node.obj.type.name);

@@ -10,7 +10,7 @@ public class AssignEx extends BinaryEx {
 
     @Override
     public void accept(Visitor vis) {
-        super.accept(vis);
+        vis.visit(this);
     }
 
     @Override

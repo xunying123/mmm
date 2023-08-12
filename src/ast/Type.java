@@ -12,7 +12,7 @@ public class Type {
     }
 
     public Type(String name_, int dim_) {
-        this.name = name_;
+        this(name_);
         this.dim = dim_;
     }
 

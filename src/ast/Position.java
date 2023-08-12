@@ -26,7 +26,7 @@ public class Position {
         this(ctx.getStart());
     }
 
-    public String tostring() {
+    public String toString() {
         return line + ":" + column;
     }
 

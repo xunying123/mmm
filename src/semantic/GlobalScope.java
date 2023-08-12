@@ -21,7 +21,7 @@ public class GlobalScope extends Scope implements BuiltIn {
         ClassDefinition str = new ClassDefinition(null, "string");
         str.funcMap.put("length", StringLengthFunc);
         str.funcMap.put("substring", substringFunc);
-        str.funcMap.put("parserInt", parseFunc);
+        str.funcMap.put("parseInt", parseFunc);
         str.funcMap.put("ord", ordFunc);
         classMem.put("string", str);
         classMem.put("int", new ClassDefinition(null, "int"));

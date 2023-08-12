@@ -18,10 +18,10 @@ public interface BuiltIn {
     FunctionDefinition getIntFunc = new FunctionDefinition(null, "getInt", Int, null, 0);
     FunctionDefinition toStringFunc = new FunctionDefinition(null, "toString", string, Int, 1);
     FunctionDefinition ArraySizeFunc = new FunctionDefinition(null,"size",Int,null,0);
-    FunctionDefinition StringLengthFunc = new FunctionDefinition(null,"length",Int,null,0);
-    FunctionDefinition substringFunc = new FunctionDefinition(null,"substring",string,Int,2);
-    FunctionDefinition parseFunc = new FunctionDefinition(null,"parserInt",Int,null,0);
-    FunctionDefinition ordFunc = new FunctionDefinition(null,"ord",Int,Int,1);
+    FunctionDefinition StringLengthFunc = new FunctionDefinition(null,"length","string",Int,null,0);
+    FunctionDefinition substringFunc = new FunctionDefinition(null,"substring","string",string,Int,2);
+    FunctionDefinition parseFunc = new FunctionDefinition(null,"parseInt","string",Int,null,0);
+    FunctionDefinition ordFunc = new FunctionDefinition(null,"ord","string",Int,Int,1);
 
 
 }
