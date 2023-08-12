@@ -1992,7 +1992,7 @@ public class MxParser extends Parser {
 					consume();
 				}
 				setState(222);
-				expression(15);
+				expression(14);
 				}
 				break;
 			case OpNot:
@@ -2273,7 +2273,7 @@ public class MxParser extends Parser {
 						_localctx = new UnaryExContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(278);
-						if (!(precpred(_ctx, 14))) throw new FailedPredicateException(this, "precpred(_ctx, 14)");
+						if (!(precpred(_ctx, 15))) throw new FailedPredicateException(this, "precpred(_ctx, 15)");
 						setState(279);
 						((UnaryExContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
@@ -2532,7 +2532,7 @@ public class MxParser extends Parser {
 		case 13:
 			return precpred(_ctx, 16);
 		case 14:
-			return precpred(_ctx, 14);
+			return precpred(_ctx, 15);
 		}
 		return true;
 	}
@@ -2684,7 +2684,7 @@ public class MxParser extends Parser {
 		"\u00050\u0000\u0000\u00da\u00dc\u00051\u0000\u0000\u00db\u00d9\u0001\u0000"+
 		"\u0000\u0000\u00db\u00dc\u0001\u0000\u0000\u0000\u00dc\u00e3\u0001\u0000"+
 		"\u0000\u0000\u00dd\u00de\u0007\u0001\u0000\u0000\u00de\u00e3\u0003*\u0015"+
-		"\u000f\u00df\u00e0\u0007\u0002\u0000\u0000\u00e0\u00e3\u0003*\u0015\r"+
+		"\u000e\u00df\u00e0\u0007\u0002\u0000\u0000\u00e0\u00e3\u0003*\u0015\r"+
 		"\u00e1\u00e3\u00030\u0018\u0000\u00e2\u00cc\u0001\u0000\u0000\u0000\u00e2"+
 		"\u00d1\u0001\u0000\u0000\u0000\u00e2\u00dd\u0001\u0000\u0000\u0000\u00e2"+
 		"\u00df\u0001\u0000\u0000\u0000\u00e2\u00e1\u0001\u0000\u0000\u0000\u00e3"+
@@ -2711,7 +2711,7 @@ public class MxParser extends Parser {
 		"\n\u0010\u0000\u0000\u0111\u0113\u00050\u0000\u0000\u0112\u0114\u0003"+
 		".\u0017\u0000\u0113\u0112\u0001\u0000\u0000\u0000\u0113\u0114\u0001\u0000"+
 		"\u0000\u0000\u0114\u0115\u0001\u0000\u0000\u0000\u0115\u0119\u00051\u0000"+
-		"\u0000\u0116\u0117\n\u000e\u0000\u0000\u0117\u0119\u0007\u0001\u0000\u0000"+
+		"\u0000\u0116\u0117\n\u000f\u0000\u0000\u0117\u0119\u0007\u0001\u0000\u0000"+
 		"\u0118\u00e4\u0001\u0000\u0000\u0000\u0118\u00e7\u0001\u0000\u0000\u0000"+
 		"\u0118\u00ea\u0001\u0000\u0000\u0000\u0118\u00ed\u0001\u0000\u0000\u0000"+
 		"\u0118\u00f0\u0001\u0000\u0000\u0000\u0118\u00f3\u0001\u0000\u0000\u0000"+

@@ -59,8 +59,8 @@ expression :  '(' expression ')'                                                
             | expression op=OpObj Identifier                                          #objEx
             | expression '[' expression ']'                                           #arrayEx
             | expression '(' functionCall?')'                                         #funEx
-            | op = (OpInc | OpDec) expression                                         #leftEx
             | <assoc=right> expression op = (OpInc | OpDec)                           #unaryEx
+            | op = (OpInc | OpDec) expression                                         #leftEx
             | <assoc=right> op = (OpLogNot | OpSub | OpNot | OpAdd ) expression       #unaryEx
             | expression op = ( OpMul | OpDiv | OpMod ) expression                    #binaryEx
             | expression op = ( OpAdd | OpSub ) expression                            #binaryEx

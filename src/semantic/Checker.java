@@ -335,13 +335,25 @@ public class Checker implements Visitor, BuiltIn {
         node.exp1.accept(this);
         node.exp2.accept(this);
         node.exp3.accept(this);
-        if((node.exp1.type.equals(Bool))) {
+        if(!(node.exp1.type.equals(Bool))) {
             throw new eError(node.pos,"no bool");
         }
-        if(node.exp2.type==null || node.exp3.type==null || !node.exp2.type.equals(node.exp3.type)) {
+        if(node.exp2.type==null || node.exp3.type==null) {
             throw new eError(node.pos,"wrong expression");
         }
-        node.type=node.exp2.type;
+        if(node.exp2.type.equals(node.exp3.type)) {
+            node.type=node.exp2.type;
+            return ;
+        }
+        if(node.exp2.type.isReference() && node.exp3.type.equals(Null)) {
+            node.type=node.exp2.type;
+            return ;
+        }
+        if(node.exp3.type.isReference() && node.exp2.type.equals(Null)) {
+            node.type=node.exp3.type;
+            return ;
+        }
+        throw new eError(node.pos,"mismatch");
     }
 
     public void visit(Declaration node) {
