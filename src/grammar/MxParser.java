@@ -1,5 +1,4 @@
-// Generated from C:/Users/xun_y/IdeaProjects/Mx-Compilier/src/grammar\MxParser.g4 by ANTLR 4.12.0
-package src.grammar;
+package src.grammar;// Generated from MxParser.g4 by ANTLR 4.13.0
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -8,7 +7,7 @@ import java.util.List;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue"})
 public class MxParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.12.0", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.13.0", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -101,7 +100,7 @@ public class MxParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "MxParser.g4"; }
+	public String getGrammarFileName() { return "src/grammar/MxParser.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
