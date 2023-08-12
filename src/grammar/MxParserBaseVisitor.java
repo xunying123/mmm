@@ -1,4 +1,4 @@
-package src.grammar;// Generated from MxParser.g4 by ANTLR 4.13.0
+// Generated from MxParser.g4 by ANTLR 4.13.0
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**

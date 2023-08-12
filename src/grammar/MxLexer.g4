@@ -1,6 +1,6 @@
 lexer grammar MxLexer;
 
-LineComment : '//' .*? '\r'?'\n' -> channel(HIDDEN);
+LineComment : '//' .*? '\r'? ('\n' | EOF) -> channel(HIDDEN);
 BlockComment : '/*'.*? '*/' ->channel(HIDDEN);
 
 Void:     'void';

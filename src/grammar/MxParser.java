@@ -1,9 +1,12 @@
-package src.grammar;// Generated from MxParser.g4 by ANTLR 4.13.0
+// Generated from MxParser.g4 by ANTLR 4.13.0
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.misc.*;
 import org.antlr.v4.runtime.tree.*;
 import java.util.List;
+import java.util.Iterator;
+import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue"})
 public class MxParser extends Parser {
@@ -100,7 +103,7 @@ public class MxParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "src/grammar/MxParser.g4"; }
+	public String getGrammarFileName() { return "MxParser.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
