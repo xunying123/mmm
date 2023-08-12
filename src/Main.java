@@ -26,6 +26,5 @@ public class Main {
         GlobalScope globalScope = new GlobalScope();
         new SymbolCollector(globalScope).visit(fileA);
         new Checker(globalScope).visit(fileA);
-        System.out.println(0);
     }
 }
