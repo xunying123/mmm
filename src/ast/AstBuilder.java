@@ -1,7 +1,7 @@
 package src.ast;
 
-import src.antlr.MxParser;
-import src.antlr.MxParserBaseVisitor;
+import src.grammar.MxParser;
+import src.grammar.MxParserBaseVisitor;
 import src.ast.astnode.AstNode;
 import src.ast.astnode.FileAnalyze;
 import src.ast.astnode.ParameterNode;

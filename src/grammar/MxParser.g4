@@ -4,6 +4,8 @@ options {
   tokenVocab=MxLexer;
 }
 
+@header {package grammar;}
+
 fileAnalyze : (functionDeclaration | variableDeclaration | classDeclaration)* EOF;
 
 functionDeclaration : returnTypename Identifier '(' parameterList? ')'  '{' blockStatement '}';

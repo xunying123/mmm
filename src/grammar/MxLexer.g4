@@ -1,5 +1,7 @@
 lexer grammar MxLexer;
 
+@header {package grammar;}
+
 LineComment : '//' .*? '\r'?'\n' -> channel(HIDDEN);
 BlockComment : '/*'.*? '*/' ->channel(HIDDEN);
 
