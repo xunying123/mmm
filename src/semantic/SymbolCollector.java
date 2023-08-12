@@ -127,7 +127,6 @@ public class SymbolCollector implements Visitor {
 
     public void visit(FileAnalyze node) {
         node.allFile.forEach(vv -> vv.accept(this));
-        System.out.print(1);
     }
 
 }

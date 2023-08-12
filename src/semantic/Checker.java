@@ -21,7 +21,7 @@ public class Checker implements Visitor, BuiltIn {
 
     public void visit(TypeNode node) {
         switch (node.type.name) {
-            case "INT", "BOOL", "STRING", "VOID", "NULL", "THIS" -> {
+            case "int", "bool", "string", "void", "null", "this" -> {
             }
             default -> {
                 if (glo.getCla(node.type.name) == null) {
@@ -65,14 +65,14 @@ public class Checker implements Visitor, BuiltIn {
         if (node.exp1 != null) {
             node.exp1.accept(this);
         }
-        if (node.exp2 != null) {
-            node.exp2.accept(this);
-            if (node.exp2.type.equals(Bool)) {
+        if (node.loopExp != null) {
+            node.loopExp.accept(this);
+            if (!node.loopExp.type.equals(Bool)) {
                 throw new eError(node.pos, "no bool");
             }
         }
-        if (node.loopExp != null) {
-            node.loopExp.accept(this);
+        if (node.exp2 != null) {
+            node.exp2.accept(this);
         }
         node.sta.forEach(vv -> vv.accept(this));
         current = current.parent;
@@ -155,12 +155,13 @@ public class Checker implements Visitor, BuiltIn {
             throw new eError(node.pos, "wrong type");
         }
         if (!node.leftNode.type.equals(node.rightNode.type)) {
+            System.out.print(node.leftNode.type.equals(node.rightNode.type));
             throw new eError(node.pos, "wrong type");
         }
 
         switch (node.op) {
             case "+", "<=", ">=", "<", ">" -> {
-                if ((!node.leftNode.type.equals(Int)) && (node.leftNode.type.equals(string))) {
+                if ((!node.leftNode.type.equals(Int)) && (!node.leftNode.type.equals(string))) {
                     throw new eError(node.pos, "wrong type");
                 }
                 node.type = node.op.equals("+") ? node.leftNode.type : Bool;
