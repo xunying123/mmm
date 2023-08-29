@@ -31,7 +31,6 @@ public class Compiler {
             System.out.println("Usage: java Compiler <filename>");
             return;
         } else if (args[0].equals("-fsyntax-only")) {
-            System.out.println("Semantic check");
             CharStream input = CharStreams.fromStream(System.in);
             MxLexer lexer = new MxLexer(input);
             lexer.removeErrorListeners();
@@ -49,7 +48,6 @@ public class Compiler {
 
             return;
         } else if (args[0].equals("-S")) {
-            System.out.println("Generate assembly code");
             CharStream input = CharStreams.fromStream(System.in);
             MxLexer lexer = new MxLexer(input);
             lexer.removeErrorListeners();
