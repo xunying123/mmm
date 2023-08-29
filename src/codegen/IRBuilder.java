@@ -675,7 +675,7 @@ public class IRBuilder implements Visitor, BuiltIn {
         } else {
             root.initFunc.finish();
             IRBlock mainEn = root.mainFunc.blocks.get(0);
-            mainEn.insts.addFirst(new IRCall(mainEn, irVoid, "_mx_global_var_init"));
+            mainEn.insts.addFirst(new IRCall(mainEn, irVoid, "Mx_global_init"));
         }
         root.mainFunc.finish();
     }
