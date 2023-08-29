@@ -20,21 +20,6 @@ import java.io.FileOutputStream;
 
 public class Compiler {
     public static void main(String[] args) throws IOException {
-        System.out.println("Generate assembly code");
-        CharStream input = CharStreams.fromStream(System.in);
-        MxLexer lexer = new MxLexer(input);
-        lexer.removeErrorListeners();
-        lexer.addErrorListener(new MxErrorListener());
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
-        MxParser parser = new MxParser(tokens);
-        parser.removeErrorListeners();
-        parser.addErrorListener(new MxErrorListener());
-        ParseTree parseTreeRoot = parser.fileAnalyze();
-        AstBuilder astbuilder = new AstBuilder();
-        FileAnalyze fileA = (FileAnalyze) astbuilder.visit(parseTreeRoot);
-        GlobalScope globalScope = new GlobalScope();
-
-
            /* FileOutputStream irOut = new FileOutputStream("output.ll");
             irOut.write(irFile.toString().getBytes());
             irOut.close();*/
@@ -47,11 +32,38 @@ public class Compiler {
             return;
         } else if (args[0].equals("-fsyntax-only")) {
             System.out.println("Semantic check");
+            CharStream input = CharStreams.fromStream(System.in);
+            MxLexer lexer = new MxLexer(input);
+            lexer.removeErrorListeners();
+            lexer.addErrorListener(new MxErrorListener());
+            CommonTokenStream tokens = new CommonTokenStream(lexer);
+            MxParser parser = new MxParser(tokens);
+            parser.removeErrorListeners();
+            parser.addErrorListener(new MxErrorListener());
+            ParseTree parseTreeRoot = parser.fileAnalyze();
+            AstBuilder astbuilder = new AstBuilder();
+            FileAnalyze fileA = (FileAnalyze) astbuilder.visit(parseTreeRoot);
+            GlobalScope globalScope = new GlobalScope();
             new SymbolCollector(globalScope).visit(fileA);
             new Checker(globalScope).visit(fileA);
 
             return;
         } else if (args[0].equals("-S")) {
+            System.out.println("Generate assembly code");
+            CharStream input = CharStreams.fromStream(System.in);
+            MxLexer lexer = new MxLexer(input);
+            lexer.removeErrorListeners();
+            lexer.addErrorListener(new MxErrorListener());
+            CommonTokenStream tokens = new CommonTokenStream(lexer);
+            MxParser parser = new MxParser(tokens);
+            parser.removeErrorListeners();
+            parser.addErrorListener(new MxErrorListener());
+            ParseTree parseTreeRoot = parser.fileAnalyze();
+            AstBuilder astbuilder = new AstBuilder();
+            FileAnalyze fileA = (FileAnalyze) astbuilder.visit(parseTreeRoot);
+            GlobalScope globalScope = new GlobalScope();
+            new SymbolCollector(globalScope).visit(fileA);
+            new Checker(globalScope).visit(fileA);
             IRFileAnalyze irFile = new IRFileAnalyze();
             new IRBuilder(irFile,globalScope).visit(fileA);
             AsmFile asmFile = new AsmFile();
