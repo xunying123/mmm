@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class AsmFunction {
     public String name;
     public ArrayList<AsmBlock> block = new ArrayList<>();
-    public ArrayList<AsmReg> para = new ArrayList<>();
 
     public int regCnt = 0;
     public int alloca = 4;

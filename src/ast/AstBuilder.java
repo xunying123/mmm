@@ -129,7 +129,7 @@ public class AstBuilder extends MxParserBaseVisitor<AstNode> {
         if (ctx.Void() != null) {
             return new TypeNode(new Position(ctx), ctx.getText());
         } else {
-            return (TypeNode) visit(ctx.typename());
+            return visit(ctx.typename());
         }
     }
 
@@ -258,7 +258,7 @@ public class AstBuilder extends MxParserBaseVisitor<AstNode> {
 
     @Override
     public AstNode visitParent(MxParser.ParentContext ctx) {
-        return (ExpressionNode) visit(ctx.expression());
+        return visit(ctx.expression());
     }
 
     @Override
@@ -278,11 +278,11 @@ public class AstBuilder extends MxParserBaseVisitor<AstNode> {
         FileAnalyze fil = new FileAnalyze(new Position(ctx));
         for (var vv : ctx.children) {
             if (vv instanceof MxParser.ClassDeclarationContext) {
-                fil.allFile.add((ClassDefinition) visit(vv));
+                fil.allFile.add(visit(vv));
             } else if (vv instanceof MxParser.FunctionDeclarationContext) {
-                fil.allFile.add((FunctionDefinition) visit(vv));
+                fil.allFile.add(visit(vv));
             } else if (vv instanceof MxParser.VariableDeclarationContext) {
-                fil.allFile.add((VariableDeclaration) visit(vv));
+                fil.allFile.add(visit(vv));
             }
 
         }

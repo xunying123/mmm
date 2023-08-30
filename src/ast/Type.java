@@ -30,10 +30,8 @@ public class Type {
     public boolean equals(Object obj) {
         if(obj==null) return false;
         if(obj==this) return true;
-        if(!(obj instanceof Type)) return false;
-        Type type_ = (Type) obj;
+        if(!(obj instanceof Type type_)) return false;
         if(this.dim !=type_.dim) return false;
-        if(!this.name.equals(type_.name)) return false;
-        return true;
+        return this.name.equals(type_.name);
     }
 }

@@ -10,66 +10,54 @@ import src.ast.BuiltIn;
 import java.util.HashMap;
 
 public class InstSelector implements IRVisitor, BuiltIn {
-    AsmFile module;
+    AsmFile fileA;
     AsmFunction curFunc;
     AsmBlock curBlock;
     int blockCnt = 0;
 
     HashMap<IRBlock, AsmBlock> blockMap = new HashMap<>();
 
-    public InstSelector(AsmFile module) {
-        this.module = module;
+    public InstSelector(AsmFile mm) {
+        this.fileA = mm;
     }
 
-    AsmReg getReg(IRBasic entity) {
-        if (entity.reg == null) {
-            if (entity instanceof IRRegister) {
-                entity.reg = new AsmVirtualReg(entity.type.size);
-            } else if (entity instanceof IRConst) {
-                entity.reg = new AsmVirtualImm((IRConst) entity);
+    AsmReg getReg(IRBasic bb) {
+        if (bb.reg == null) {
+            if (bb instanceof IRRegister) {
+                bb.reg = new AsmVirtualReg(bb.type.size);
+            } else if (bb instanceof IRConst) {
+                bb.reg = new AsmVirtualImm((IRConst) bb);
             }
         }
-        return entity.reg;
+        return bb.reg;
     }
 
-    void storeReg(int size, AsmReg value, AsmReg dest, int offset) {
-        if(offset<1<<11) {
-            curBlock.add(new AsmStore(size,dest,value,new Immediate(offset)));
-        } else {
-            AsmVirtualReg tmp = new AsmVirtualReg(4);
-            curBlock.add(new AsmBinary("add", tmp, dest, new AsmVirtualImm(offset)));
-            curBlock.add(new AsmStore(size, tmp, value));
-        }
+    void storeReg(int size, AsmReg vv, AsmReg dest, int off) {
+        curBlock.add(new AsmStore(size, dest, vv, new Immediate(off)));
     }
 
-    void loadReg(int size, AsmReg dest, AsmReg src, int offset) {
-        if(offset<1<<11) {
-            curBlock.add(new AsmLoad(size,dest,src,new Immediate(offset)));
-        } else {
-            AsmVirtualReg tmp = new AsmVirtualReg(4);
-            curBlock.add(new AsmBinary("add", tmp, src, new AsmVirtualImm(offset)));
-            curBlock.add(new AsmLoad(size, dest, tmp));
-        }
+    void loadReg(int size, AsmReg dest, AsmReg src, int off) {
+        curBlock.add(new AsmLoad(size, dest, src, new Immediate(off)));
     }
 
     public void visit(IRFileAnalyze node) {
-        node.var.forEach(globalVar -> {
-            globalVar.reg = new AsmVar(globalVar);
-            module.var.add((AsmVar) globalVar.reg);
+        node.var.forEach(gg -> {
+            gg.reg = new AsmVar(gg);
+            fileA.var.add((AsmVar) gg.reg);
         });
         node.string.values().forEach(str -> {
-            AsmString globalStr = new AsmString(".str." + String.valueOf(str.num), str.value);
-            module.str.add(globalStr);
-            str.reg = globalStr;
+            AsmString gs = new AsmString(".str." + (str.num), str.value);
+            fileA.str.add(gs);
+            str.reg = gs;
         });
         if (node.initFunc != null) {
             curFunc = new AsmFunction(node.initFunc.name);
-            module.fun.add(curFunc);
+            fileA.fun.add(curFunc);
             node.initFunc.accept(this);
         }
         node.fuc.forEach(func -> {
             curFunc = new AsmFunction(func.name);
-            module.fun.add(curFunc);
+            fileA.fun.add(curFunc);
             func.accept(this);
         });
     }
@@ -77,14 +65,14 @@ public class InstSelector implements IRVisitor, BuiltIn {
     public void visit(IRFunction node) {
         blockMap.clear();
         AsmVirtualReg.cnt = 0;
-        int maxArgCnt = 0;
+        int MaxC = 0;
         for (IRBlock blk : node.blocks) {
             blockMap.put(blk, new AsmBlock(".L" + blockCnt++));
             for (IROrders inst : blk.insts)
                 if (inst instanceof IRCall)
-                    maxArgCnt = Math.max(maxArgCnt, ((IRCall) inst).args.size());
+                    MaxC = Math.max(MaxC, ((IRCall) inst).args.size());
         }
-        curFunc.paraU = (maxArgCnt > 8 ? maxArgCnt - 8 : 0) << 2;
+        curFunc.paraU = (MaxC > 8 ? MaxC - 8 : 0) << 2;
         for (int i = 0; i < node.para.size(); ++i)
             if (i < 8)
                 node.para.get(i).reg = AsmRealReg.regMap.get("a" + i);
@@ -101,18 +89,16 @@ public class InstSelector implements IRVisitor, BuiltIn {
         curFunc.regCnt = AsmVirtualReg.cnt;
         curFunc.all = curFunc.paraU + curFunc.alloca + curFunc.regCnt * 4;
 
-        AsmBlock entryBlock = curFunc.block.get(0), exitBlock = curFunc.block.get(curFunc.block.size() - 1);
-        entryBlock.insts.addFirst(new AsmBinary("add", AsmRealReg.regMap.get("sp"), AsmRealReg.regMap.get("sp"),
+        AsmBlock enB = curFunc.block.get(0), exB = curFunc.block.get(curFunc.block.size() - 1);
+        enB.insts.addFirst(new AsmBinary("add", AsmRealReg.regMap.get("sp"), AsmRealReg.regMap.get("sp"),
                 new AsmVirtualImm(-curFunc.all)));
-        exitBlock.insts.add(new AsmBinary("add", AsmRealReg.regMap.get("sp"), AsmRealReg.regMap.get("sp"),
+        exB.insts.add(new AsmBinary("add", AsmRealReg.regMap.get("sp"), AsmRealReg.regMap.get("sp"),
                 new AsmVirtualImm(curFunc.all)));
-        exitBlock.insts.add(new AsmRet());
+        exB.insts.add(new AsmRet());
     }
 
     public void visit(IRBlock node) {
-        node.insts.forEach(inst -> {
-            inst.accept(this);
-        });
+        node.insts.forEach(inst -> inst.accept(this));
         node.ter.accept(this);
     }
 
@@ -162,28 +148,24 @@ public class InstSelector implements IRVisitor, BuiltIn {
     public void visit(IRIcmp node) {
         AsmVirtualReg tmp = new AsmVirtualReg(4);
         switch (node.op) {
-            case "eq":
+            case "eq" -> {
                 curBlock.add(new AsmBinary("sub", tmp, getReg(node.ll), getReg(node.rr)));
                 curBlock.add(new AsmUnary("seqz", getReg(node.reg), tmp));
-                break;
-            case "ne":
+            }
+            case "ne" -> {
                 curBlock.add(new AsmBinary("sub", tmp, getReg(node.ll), getReg(node.rr)));
                 curBlock.add(new AsmUnary("snez", getReg(node.reg), tmp));
-                break;
-            case "sgt":
-                curBlock.add(new AsmBinary("slt", getReg(node.reg), getReg(node.rr), getReg(node.ll)));
-                break;
-            case "sge":
+            }
+            case "sgt" -> curBlock.add(new AsmBinary("slt", getReg(node.reg), getReg(node.rr), getReg(node.ll)));
+            case "sge" -> {
                 curBlock.add(new AsmBinary("slt", tmp, getReg(node.ll), getReg(node.rr)));
                 curBlock.add(new AsmUnary("xori", getReg(node.reg), tmp, new Immediate(1)));
-                break;
-            case "slt":
-                curBlock.add(new AsmBinary("slt", getReg(node.reg), getReg(node.ll), getReg(node.rr)));
-                break;
-            case "sle":
+            }
+            case "slt" -> curBlock.add(new AsmBinary("slt", getReg(node.reg), getReg(node.ll), getReg(node.rr)));
+            case "sle" -> {
                 curBlock.add(new AsmBinary("slt", tmp, getReg(node.rr), getReg(node.ll)));
                 curBlock.add(new AsmUnary("xori", getReg(node.reg), tmp, new Immediate(1)));
-                break;
+            }
         }
     }
 

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class FunctionDefinition extends AstNode {
     public TypeNode returnType;
-    public String Name = null;
+    public String Name;
     public String className = null;
     public ParameterNode para = null;
     public ArrayList<Statements> sta = new ArrayList<>();

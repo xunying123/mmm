@@ -1,7 +1,7 @@
 package src.asm.basic;
 
 public class HiLoFun extends Immediate{
-    public enum Type {hi,lo};
+    public enum Type {hi,lo}
     public Type type;
     public String str;
 

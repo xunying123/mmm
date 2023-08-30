@@ -1,6 +1,5 @@
 package src.asm.instructions;
 
-import src.asm.basic.AsmRealReg;
 import src.asm.basic.AsmReg;
 import src.asm.basic.AsmVirtualImm;
 

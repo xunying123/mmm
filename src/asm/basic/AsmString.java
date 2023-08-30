@@ -1,7 +1,5 @@
 package src.asm.basic;
 
-import src.IR.irtype.IRStringConst;
-
 public class AsmString extends Global{
     public String ss;
 
