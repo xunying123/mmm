@@ -15,6 +15,6 @@ public class IRBoolConst extends IRConst {
 
     @Override
     public String toStringT() {
-        return "i8 " + toString();
+        return "i8 " + this;
     }
 }

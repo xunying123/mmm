@@ -6,13 +6,13 @@ public class IRInt extends IRType{
     public int length;
 
     public IRInt(int length_) {
-        super("i"+String.valueOf(length_),length_/8);
+        super("i"+(length_),length_/8);
         this.length=length_;
     }
 
     @Override
     public String toString() {
-        return "i"+String.valueOf(length);
+        return "i"+(length);
     }
 
     @Override

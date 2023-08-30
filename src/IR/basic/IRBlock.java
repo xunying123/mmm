@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 public class IRBlock {
     public String name;
-    public IRFunction parent = null;
+    public IRFunction parent;
     public LinkedList<IROrders> insts = new LinkedList<>();
     public IRTerminal ter = null;
     public boolean isFinished = false;
@@ -14,13 +14,13 @@ public class IRBlock {
 
     public IRBlock(IRFunction fun, String name) {
         this.parent = fun;
-        this.name = name + String.valueOf(cnt++);
+        this.name = name +(cnt++);
 
     }
 
     public IRBlock(IRFunction fun, String na, IRBlock tot) {
         this.parent = fun;
-        this.name = na + String.valueOf(cnt++);
+        this.name = na + (cnt++);
         this.ter = new IRJump(this, tot);
     }
 

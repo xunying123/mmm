@@ -16,6 +16,6 @@ public class IRNullConst extends IRConst{
 
     @Override
     public String toStringT() {
-        return type==irNull?toString():type+" "+toString();
+        return type==irNull?toString():type+" "+ this;
     }
 }

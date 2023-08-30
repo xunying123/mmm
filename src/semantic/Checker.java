@@ -178,9 +178,8 @@ public class Checker implements Visitor, BuiltIn {
                 }
                 node.type = Bool;
             }
-            default -> {
-                node.type = Bool;
-            }
+            default -> node.type = Bool;
+
         }
     }
 

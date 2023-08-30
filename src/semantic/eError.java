@@ -12,12 +12,6 @@ public class eError extends RuntimeException{
         this.warning=war;
     }
 
-    public eError(Position pos_,String war,String s) {
-        this.pos=pos_;
-        this.warning=war;
-        this.ss=s;
-    }
-
     @Override
     public String toString() {
         return "Warning: " + warning + "  at" + pos.toString() + " " + ss;

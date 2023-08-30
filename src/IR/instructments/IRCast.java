@@ -6,8 +6,6 @@ import src.IR.basic.IRRegister;
 import src.IR.basic.IRVisitor;
 import src.IR.irtype.IRType;
 
-import java.util.LinkedHashSet;
-
 public abstract class IRCast extends IROrders{
     public IRBasic value;
     public IRType type;

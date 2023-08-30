@@ -15,6 +15,6 @@ public class IRIntConst extends IRConst{
 
     @Override
     public String toStringT() {
-        return "i32 " +toString();
+        return "i32 " + this;
     }
 }

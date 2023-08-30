@@ -7,7 +7,7 @@ import src.IR.basic.IRVisitor;
 import src.IR.irtype.IRType;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
+import java.util.Collections;
 
 public class IRCall extends IROrders{
     public IRType type;
@@ -26,9 +26,7 @@ public class IRCall extends IROrders{
         this.type=tt;
         this.call=ca;
         this.name=na;
-        for(IRBasic a:aa) {
-            this.args.add(a);
-        }
+        Collections.addAll(this.args, aa);
     }
 
     @Override

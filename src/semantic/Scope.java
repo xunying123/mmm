@@ -1,6 +1,5 @@
 package src.semantic;
 
-import src.IR.basic.IRFunction;
 import src.IR.basic.IRRegister;
 import src.ast.Type;
 import src.ast.astnode.definition.ClassDefinition;
@@ -18,7 +17,6 @@ public class Scope {
     public boolean isRE = false;
 
     public HashMap<String, IRRegister> IRVar = new HashMap<>();
-    public HashMap<String, IRFunction> IRFunc = new HashMap<>();
     public Scope() {
     }
 

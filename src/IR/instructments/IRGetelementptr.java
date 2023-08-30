@@ -8,7 +8,7 @@ import src.IR.irtype.IRPtr;
 import src.IR.irtype.IRType;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
+import java.util.Collections;
 
 public class IRGetelementptr extends IROrders{
     public IRRegister res;
@@ -21,9 +21,7 @@ public class IRGetelementptr extends IROrders{
         this.ptr=pp;
         this.type=((IRPtr) ptr.type).PointTo();
         this.res=rr;
-        for(IRBasic in:ii) {
-            this.index.add(in);
-        }
+        Collections.addAll(this.index, ii);
     }
 
     @Override

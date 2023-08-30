@@ -1,11 +1,8 @@
 package src.IR.instructments;
 
-import src.IR.basic.IRBasic;
 import src.IR.basic.IRBlock;
-import src.IR.basic.IRRegister;
 import src.IR.basic.IRVisitor;
 
-import java.util.LinkedHashSet;
 
 public class IRJump extends IRTerminal{
     public IRBlock block;

@@ -2,7 +2,6 @@ package src.IR.instructments;
 
 import src.IR.basic.*;
 
-import java.util.LinkedHashSet;
 
 public class IRBranch extends IRTerminal{
     public IRBasic cond;

@@ -1,13 +1,9 @@
 package src.IR.instructments;
 
-import src.IR.basic.IRBasic;
 import src.IR.basic.IRBlock;
 import src.IR.basic.IRRegister;
 import src.IR.basic.IRVisitor;
 import src.IR.irtype.IRType;
-
-import java.util.LinkedHashSet;
-
 
 public class IRAlloca extends IROrders{
     public IRType type;

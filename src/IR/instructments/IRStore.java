@@ -1,9 +1,7 @@
 package src.IR.instructments;
 
 import src.IR.basic.*;
-import src.IR.instructments.IROrders;
 
-import java.util.LinkedHashSet;
 
 public class IRStore extends IROrders {
     public IRBasic value;

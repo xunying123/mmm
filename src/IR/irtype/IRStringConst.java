@@ -15,12 +15,12 @@ public class IRStringConst extends IRConst {
 
     @Override
     public String toString() {
-        return "@str." + String.valueOf(num);
+        return "@str." + (num);
     }
 
     @Override
     public String toStringT() {
-        return "[" + String.valueOf(size) + " x i8]* " + toString();
+        return "[" + (size) + " x i8]* " + this;
     }
 
     public String printS() {

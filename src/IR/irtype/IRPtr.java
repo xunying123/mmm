@@ -20,7 +20,7 @@ public class IRPtr extends IRType{
     public IRPtr(IRType tt,int dim) {
         super(tt.name+"*".repeat(dim),4);
         if(tt instanceof IRPtr) {
-            this.ptrFrom = ((IRPtr)tt).ptrFrom;;
+            this.ptrFrom = ((IRPtr)tt).ptrFrom;
             this.dim=((IRPtr)tt).dim+dim;
         } else {
             this.dim=dim;

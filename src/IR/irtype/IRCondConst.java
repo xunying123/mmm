@@ -15,6 +15,6 @@ public class IRCondConst extends IRConst {
 
     @Override
     public String toStringT() {
-        return "i1 "+toString();
+        return "i1 "+ this;
     }
 }
