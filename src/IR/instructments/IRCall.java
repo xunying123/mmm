@@ -8,6 +8,7 @@ import src.IR.irtype.IRType;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 
 public class IRCall extends IROrders{
     public IRType type;
@@ -43,5 +44,24 @@ public class IRCall extends IROrders{
     @Override
     public void accept(IRVisitor vis) {
         vis.visit(this);
+    }
+
+    @Override
+    public LinkedHashSet<IRBasic> getU() {
+        LinkedHashSet<IRBasic> rr = new LinkedHashSet<>();
+        for(IRBasic aa:args) rr.add(aa);
+        return rr;
+    }
+
+    @Override
+    public IRRegister getD() {
+        return call;
+    }
+
+    @Override
+    public void replaceU(IRBasic o, IRBasic n) {
+        for(int i=0;i<args.size();i++) {
+            args.set(i,args.get(i)==o?n:args.get(i));
+        }
     }
 }

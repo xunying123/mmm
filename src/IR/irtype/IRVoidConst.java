@@ -14,4 +14,14 @@ public class IRVoidConst extends IRConst{
     public String toStringT() {
         return toString();
     }
+
+    @Override
+    public boolean equals(IRConst other) {
+        return other instanceof IRVoidConst;
+    }
+
+    @Override
+    public boolean is0() {
+        return false;
+    }
 }

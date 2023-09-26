@@ -15,7 +15,9 @@ public class IRFunction {
     public ArrayList<IRRegister> para = new ArrayList<>();
     public ArrayList<IRAlloca> alloca = new ArrayList<>();
     public IRBlock exit;
+    public IRBlock entry;
     public IRRegister ret;
+    public HashMap<IRRegister,HashSet<IROrders>> list = new HashMap<>();
 
     public IRFunction(String name_, IRType tt) {
         this.name = name_;
@@ -28,7 +30,7 @@ public class IRFunction {
     }
 
     public void finish() {
-        IRBlock entry = blocks.getFirst();
+        entry = blocks.getFirst();
         for (int i = alloca.size() - 1; i >= 0; i--) {
             entry.insts.addFirst(alloca.get(i));
         }

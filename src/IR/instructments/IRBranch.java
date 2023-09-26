@@ -2,6 +2,8 @@ package src.IR.instructments;
 
 import src.IR.basic.*;
 
+import java.util.LinkedHashSet;
+
 
 public class IRBranch extends IRTerminal{
     public IRBasic cond;
@@ -25,4 +27,20 @@ public class IRBranch extends IRTerminal{
         vis.visit(this);
     }
 
+    @Override
+    public IRRegister getD() {
+        return null;
+    }
+
+    @Override
+    public LinkedHashSet<IRBasic> getU() {
+        LinkedHashSet<IRBasic> rr = new LinkedHashSet<>();
+        rr.add(cond);
+        return rr;
+    }
+
+    @Override
+    public void replaceU(IRBasic o, IRBasic n) {
+        cond=cond==o?n:cond;
+    }
 }

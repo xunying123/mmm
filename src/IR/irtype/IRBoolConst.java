@@ -17,4 +17,14 @@ public class IRBoolConst extends IRConst {
     public String toStringT() {
         return "i8 " + this;
     }
+
+    @Override
+    public boolean equals(IRConst other) {
+        return other instanceof IRBoolConst && ((IRBoolConst) other).value == value;
+    }
+
+    @Override
+    public boolean is0() {
+        return !value;
+    }
 }

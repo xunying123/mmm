@@ -13,6 +13,7 @@ import src.grammar.MxLexer;
 import src.grammar.MxParser;
 import src.ast.AstBuilder;
 import src.ast.astnode.FileAnalyze;
+import src.optmize.*;
 import src.semantic.*;
 import java.io.IOException;
 import java.io.FileOutputStream;
@@ -38,9 +39,15 @@ public class Compiler {
             new Checker(globalScope).visit(fileA);
             IRFileAnalyze irFile = new IRFileAnalyze();
             new IRBuilder(irFile,globalScope).visit(fileA);
+            new GlobalTo(irFile).work();
+            new CFG(irFile).work();
+            new MemToReg(irFile).work();
             AsmFile asmFile = new AsmFile();
             new InstSelector(asmFile).visit(irFile);
-            new RegAllocator(asmFile).work();
+            new PremAllocator(asmFile).work();
+            new manStack(asmFile).work();
+            new Merge(asmFile).work();
+            //new RegAllocator(asmFile).work();
             FileOutputStream irOut = new FileOutputStream("output.ll");
             irOut.write(irFile.toString().getBytes());
             irOut.close();
@@ -79,9 +86,15 @@ public class Compiler {
             new Checker(globalScope).visit(fileA);
             IRFileAnalyze irFile = new IRFileAnalyze();
             new IRBuilder(irFile,globalScope).visit(fileA);
+            new GlobalTo(irFile).work();
+            new CFG(irFile).work();
+            new MemToReg(irFile).work();
             AsmFile asmFile = new AsmFile();
             new InstSelector(asmFile).visit(irFile);
-            new RegAllocator(asmFile).work();
+            new PremAllocator(asmFile).work();
+            new manStack(asmFile).work();
+            new Merge(asmFile).work();
+            //new RegAllocator(asmFile).work();
             System.out.print(asmFile.toString());
         }
     }

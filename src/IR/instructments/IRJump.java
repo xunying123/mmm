@@ -1,7 +1,11 @@
 package src.IR.instructments;
 
+import src.IR.basic.IRBasic;
 import src.IR.basic.IRBlock;
+import src.IR.basic.IRRegister;
 import src.IR.basic.IRVisitor;
+
+import java.util.LinkedHashSet;
 
 
 public class IRJump extends IRTerminal{
@@ -22,4 +26,18 @@ public class IRJump extends IRTerminal{
         return "br label %"+block.name;
     }
 
+    @Override
+    public void replaceU(IRBasic o, IRBasic n) {
+        return ;
+    }
+
+    @Override
+    public LinkedHashSet<IRBasic> getU() {
+        return new LinkedHashSet<>();
+    }
+
+    @Override
+    public IRRegister getD() {
+        return null;
+    }
 }

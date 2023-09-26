@@ -6,6 +6,8 @@ import src.IR.basic.IRRegister;
 import src.IR.basic.IRVisitor;
 import src.IR.irtype.IRType;
 
+import java.util.LinkedHashSet;
+
 public class IRIcmp extends IROrders{
     public IRType type;
     public IRRegister reg;
@@ -31,4 +33,22 @@ public class IRIcmp extends IROrders{
         return reg+" = icmp "+op+" "+type+" "+ll+", "+rr;
     }
 
+    @Override
+    public IRRegister getD() {
+        return reg;
+    }
+
+    @Override
+    public LinkedHashSet<IRBasic> getU() {
+        LinkedHashSet<IRBasic> r = new LinkedHashSet<>();
+        r.add(ll);
+        r.add(rr);
+        return r;
+    }
+
+    @Override
+    public void replaceU(IRBasic o, IRBasic n) {
+        ll=ll==o?n:ll;
+        rr=rr==o?n:rr;
+    }
 }

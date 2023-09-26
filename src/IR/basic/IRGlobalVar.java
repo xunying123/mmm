@@ -5,6 +5,7 @@ import src.IR.irtype.IRType;
 
 public class IRGlobalVar extends IRRegister{
     public IRBasic initValue;
+    public boolean isCall = false;
 
     public IRGlobalVar (String name , IRType tt) {
         super(name,new IRPtr(tt));

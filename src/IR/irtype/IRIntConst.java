@@ -17,4 +17,14 @@ public class IRIntConst extends IRConst{
     public String toStringT() {
         return "i32 " + this;
     }
+
+    @Override
+    public boolean is0() {
+        return value==0;
+    }
+
+    @Override
+    public boolean equals(IRConst other) {
+        return other instanceof IRIntConst && ((IRIntConst) other).value==value;
+    }
 }

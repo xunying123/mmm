@@ -36,4 +36,14 @@ public class IRStringConst extends IRConst {
         }
         return rr + "\\00";
     }
+
+    @Override
+    public boolean is0() {
+        return false;
+    }
+
+    @Override
+    public boolean equals(IRConst other) {
+        return other instanceof IRStringConst && ((IRStringConst) other).value.equals(value);
+    }
 }

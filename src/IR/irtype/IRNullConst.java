@@ -18,4 +18,15 @@ public class IRNullConst extends IRConst{
     public String toStringT() {
         return type==irNull?toString():type+" "+ this;
     }
+
+    @Override
+    public boolean equals(IRConst other) {
+        return other instanceof IRNullConst;
+    }
+
+    @Override
+    public boolean is0() {
+        return true;
+    }
+
 }

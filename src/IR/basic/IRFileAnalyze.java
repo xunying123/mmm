@@ -8,20 +8,21 @@ import src.ast.BuiltIn;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class IRFileAnalyze implements BuiltIn {
-    public ArrayList<IRFunction> fuc = new ArrayList<>();
+    public LinkedList<IRFunction> fuc = new LinkedList<>();
     public ArrayList<IRStruct> str = new ArrayList<>();
     public ArrayList<IRGlobalVar> var = new ArrayList<>();
 
     public HashMap<String, IRStringConst> string = new HashMap<>();
     public IRFunction initFunc = new IRFunction("Mx_global_init", irVoid);
     public IRFunction mainFunc;
-    public IRBlock initBlock = new IRBlock(initFunc, "entry_");
+    public IRBlock initBlock = new IRBlock(initFunc, "entry_",0);
 
     public IRFileAnalyze() {
         initFunc.add(initBlock);
-        initFunc.exit = new IRBlock(initFunc, "return_");
+        initFunc.exit = new IRBlock(initFunc, "return_",0);
         initBlock.ter = new IRJump(initBlock, initFunc.exit);
         initFunc.exit.ter = new IRRet(initFunc.exit, irVoidConst);
     }
