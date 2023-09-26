@@ -8,7 +8,6 @@ import src.IR.basic.IRFileAnalyze;
 import src.asm.basic.AsmFile;
 import src.codegen.IRBuilder;
 import src.codegen.InstSelector;
-import src.codegen.RegAllocator;
 import src.grammar.MxLexer;
 import src.grammar.MxParser;
 import src.ast.AstBuilder;
