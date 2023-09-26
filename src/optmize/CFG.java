@@ -25,7 +25,7 @@ public class CFG {
                 IRJump jj = (IRJump) bb.ter;
                 bb.succ.add(jj.block);
                 jj.block.pred.add(bb);
-            } else {
+            } else if(bb.ter instanceof IRBranch){
                 IRBranch br = (IRBranch) bb.ter;
                 bb.succ.add(br.trueB);
                 bb.succ.add(br.falseB);

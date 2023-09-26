@@ -10,7 +10,7 @@ public class IRBlock {
     public LinkedList<IROrders> insts = new LinkedList<>();
     public IRTerminal ter = null;
     public boolean isFinished = false;
-    public int depth=0;
+    public int depth;
     public static int cnt = 0;
     public IRBlock oo = null;
     public LinkedList<IRBlock> pred = new LinkedList<>();

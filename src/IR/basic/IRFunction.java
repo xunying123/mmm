@@ -17,7 +17,6 @@ public class IRFunction {
     public IRBlock exit;
     public IRBlock entry;
     public IRRegister ret;
-    public HashMap<IRRegister,HashSet<IROrders>> list = new HashMap<>();
 
     public IRFunction(String name_, IRType tt) {
         this.name = name_;
