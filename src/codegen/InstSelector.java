@@ -58,8 +58,8 @@ public class InstSelector implements IRVisitor, BuiltIn {
             node.blocks.get(i).accept(this);
             curFunc.add(curBlock);
         }
-        AsmBlock enB = curFunc.block.get(0);
-        AsmBlock exB = curFunc.block.get(curFunc.block.size() - 1);
+        curFunc.entry = curFunc.block.get(0);
+        curFunc.exit= curFunc.block.get(curFunc.block.size() - 1);
         for (int i = 0; i < node.para.size() && i < 8; i++) {
             curFunc.entry.insts.addFirst(new AsmMv(node.para.get(i).reg, AsmRealReg.get("a" + i)));
         }
