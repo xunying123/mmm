@@ -3,7 +3,7 @@ package src.asm.instructions;
 import src.asm.basic.AsmBlock;
 
 public class AsmJump extends AsmInstruction{
-    AsmBlock to;
+    public AsmBlock to;
 
     public AsmJump(AsmBlock tt) {
         this.to=tt;

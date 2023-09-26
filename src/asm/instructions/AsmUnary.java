@@ -15,7 +15,13 @@ public class AsmUnary extends AsmInstruction {
     }
 
     public AsmUnary(String oo, AsmReg rr, AsmReg rr1, Immediate ii) {
-        this(oo,rr,rr1);
+        switch (oo) {
+            case "shli" -> this.op="slli";
+            case "ashri" -> this.op="srai";
+            default -> this.op=oo;
+        }
+        this.rd=rr;
+        this.rs1=rr1;
         this.imm=ii;
     }
 

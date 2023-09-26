@@ -21,25 +21,6 @@ public class InstSelector implements IRVisitor, BuiltIn {
         this.fileA = mm;
     }
 
-    AsmReg getReg(IRBasic bb) {
-        if (bb.reg == null) {
-            if (bb instanceof IRRegister) {
-                bb.reg = new AsmVirtualReg(bb.type.size);
-            } else if (bb instanceof IRConst) {
-                bb.reg = new AsmVirtualImm((IRConst) bb);
-            }
-        }
-        return bb.reg;
-    }
-
-    void storeReg(int size, AsmReg vv, AsmReg dest, int off) {
-        curBlock.add(new AsmStore(size, dest, vv, new Immediate(off)));
-    }
-
-    void loadReg(int size, AsmReg dest, AsmReg src, int off) {
-        curBlock.add(new AsmLoad(size, dest, src, new Immediate(off)));
-    }
-
     public void visit(IRFileAnalyze node) {
         node.var.forEach(gg -> {
             gg.reg = new AsmVar(gg);
@@ -185,5 +166,53 @@ public class InstSelector implements IRVisitor, BuiltIn {
 
     public void visit(IRStore node) {
         storeReg(node.value.type.size, getReg(node.value), getReg(node.dest), 0);
+    }
+
+    public void visit(IRPhi node) {
+        AsmVirtualReg tt = new AsmVirtualReg(node.dest.type.size);
+        curBlock.add(new AsmMv(getReg(node.dest),tt));
+        for(int i=0;i<node.vv.size();i++) {
+            IRBasic vv = node.vv.get(i);
+            if(vv instanceof IRConst cc) {
+                blockMap.get(node.bb.get(i).)
+            }
+        }
+    }
+
+    AsmReg getReg(IRBasic bb) {
+        if (bb.reg == null) {
+            if (bb instanceof IRRegister) {
+                bb.reg = new AsmVirtualReg(bb.type.size);
+            } else if (bb instanceof IRConst) {
+                bb.reg = new AsmVirtualImm((IRConst) bb);
+            }
+        }
+        return bb.reg;
+    }
+
+    void storeReg(int size, AsmReg vv, AsmReg dest, int off) {
+        if (off < 1 << 11) {
+            curBlock.add(new AsmStore(size, dest, vv, new Immediate(off)));
+        } else {
+            AsmVirtualReg tt = new AsmVirtualReg(4);
+            curBlock.add(new AsmBinary("add", tt, dest, immTo(new AsmVirtualImm(off))));
+            curBlock.add(new AsmStore(size, tt, vv));
+        }
+    }
+
+    void loadReg(int size, AsmReg dest, AsmReg src, int off) {
+        if (off < 1 << 11) {
+            curBlock.add(new AsmLoad(size, dest, src, new Immediate(off)));
+        } else {
+            AsmVirtualReg tt = new AsmVirtualReg(4);
+            curBlock.add(new AsmBinary("add", tt, dest, immTo(new AsmVirtualImm(off))));
+            curBlock.add(new AsmLoad(size, dest, tt));
+        }
+    }
+
+    AsmReg immTo(AsmVirtualImm ii) {
+        AsmVirtualReg rr = new AsmVirtualReg(4);
+        curBlock.add(new AsmLi(rr, ii));
+        return rr;
     }
 }

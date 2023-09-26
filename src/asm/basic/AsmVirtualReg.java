@@ -10,4 +10,14 @@ public class AsmVirtualReg extends AsmReg{
         this.size=siz;
         id = cnt++;
     }
+
+    public AsmVirtualReg(int siz,int ii) {
+        this.size=siz;
+        this.index=ii-8;
+    }
+
+    @Override
+    public String toString() {
+        return "% "+id;
+    }
 }

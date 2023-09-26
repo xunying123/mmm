@@ -50,8 +50,13 @@ public class RegAllocator {
     void alloSrc(AsmRealReg rr, AsmReg ss) {
         if (ss instanceof AsmVirtualReg) {
             int off = ((AsmVirtualReg) ss).id != -1 ? regStart + ((AsmVirtualReg) ss).id * 4 : total + ((AsmVirtualReg) ss).index * 4;
-            list.add(new AsmLoad(((AsmVirtualReg) ss).size, rr, sp, new Immediate(off)));
-
+            if(off < 1<<11) {
+                list.add(new AsmLoad(((AsmVirtualReg) ss).size, rr, sp, new Immediate(off)));
+            } else {
+                list.add(new AsmLi(t2,new AsmVirtualImm(off)));
+                list.add(new AsmBinary("add",t2,t2,sp));
+                list.add(new AsmLoad(((AsmVirtualReg) ss).size,rr,t2));
+            }
         } else if (ss instanceof AsmVirtualImm) {
             list.add(new AsmLi(rr, (AsmVirtualImm) ss));
         } else if (ss instanceof Global) {
@@ -63,7 +68,13 @@ public class RegAllocator {
     void alloDes(AsmRealReg rr, AsmReg dd) {
         if (dd instanceof AsmVirtualReg) {
             int off = ((AsmVirtualReg) dd).id != -1 ? regStart + ((AsmVirtualReg) dd).id * 4 : total + ((AsmVirtualReg) dd).index * 4;
-            list.add(new AsmStore(((AsmVirtualReg) dd).size, sp, rr, new Immediate(off)));
+           if(off<1<<11) {
+               list.add(new AsmStore(((AsmVirtualReg) dd).size, sp, rr, new Immediate(off)));
+           } else {
+               list.add(new AsmLi(t2,new AsmVirtualImm(off)));
+               list.add(new AsmBinary("add",t2,t2,sp));
+               list.add(new AsmStore(((AsmVirtualReg) dd).size,t2,rr));
+           }
         }
     }
 }
