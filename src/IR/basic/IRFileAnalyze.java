@@ -62,8 +62,6 @@ public class IRFileAnalyze implements BuiltIn {
             ret += gg + " = dso_local global " + ((IRPtr) gg.type).PointTo() + " " + gg.initValue + "\n";
         }
         ret += "\ndeclare dso_local i8* @malloc(i32)\n";
-        ret += "declare dso_local i8* @strcpy(i8*, i8*)\n";
-        ret += "declare dso_local i8* @strcat(i8*, i8*)\n";
         ret += "declare dso_local i32 @strlen(i8*)\n";
         ret += "declare void @print(i8*)\n";
         ret += "declare void @println(i8*)\n";
@@ -75,15 +73,14 @@ public class IRFileAnalyze implements BuiltIn {
         ret += "declare i8* @__mx_substring(i8*, i32, i32)\n";
         ret += "declare i32 @__mx_parseInt(i8*)\n";
         ret += "declare i32 @__mx_ord(i8*, i32)\n";
+        ret += "declare i8* @__mx_stradd(i8*, i8*)\n";
         ret += "declare i8 @__mx_strlt(i8*, i8*)\n";
         ret += "declare i8 @__mx_strle(i8*, i8*)\n";
         ret += "declare i8 @__mx_strgt(i8*, i8*)\n";
         ret += "declare i8 @__mx_strge(i8*, i8*)\n";
         ret += "declare i8 @__mx_streq(i8*, i8*)\n";
         ret += "declare i8 @__mx_strneq(i8*, i8*)\n\n";
-        if(initFunc !=null) {
-            ret+=initFunc+"\n";
-        }
+
         for (IRFunction ff : fuc) {
             ret += ff + "\n";
         }

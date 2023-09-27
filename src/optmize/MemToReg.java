@@ -102,6 +102,7 @@ public class MemToReg {
             }
             if(flag) {
                 bb.insts.forEach(ii -> ii.replaceU(pp.dest,vv));
+                pp.delete=true;
             }
         });
         for(int i=bb.phi.size()-1;i>=0;i--) {

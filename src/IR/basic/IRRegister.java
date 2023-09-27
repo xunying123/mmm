@@ -15,7 +15,7 @@ public class IRRegister extends IRBasic{
     @Override
     public String toString() {
         if(index==-1 && (name==null || !name.equals("retval"))) index=cnt++;
-        return "%" + ((name!=null && name.equals("retval"))?name:String.valueOf(index));
+        return "%." + ((name!=null && name.equals("retval"))?name:String.valueOf(index));
     }
 
     @Override
