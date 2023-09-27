@@ -4,6 +4,8 @@ import src.IR.basic.IRBasic;
 import src.IR.basic.IRBlock;
 import src.IR.basic.IRRegister;
 import src.IR.basic.IRVisitor;
+import src.IR.irtype.IRCondConst;
+import src.IR.irtype.IRIntConst;
 import src.IR.irtype.IRType;
 
 import java.util.LinkedHashSet;
@@ -50,5 +52,35 @@ public class IRIcmp extends IROrders{
     public void replaceU(IRBasic o, IRBasic n) {
         ll=ll==o?n:ll;
         rr=rr==o?n:rr;
+    }
+
+    public IRCondConst calc() {
+        if (ll instanceof IRIntConst && rr instanceof IRIntConst) {
+            int lll = ((IRIntConst) ll).value;
+            int rrr = ((IRIntConst) rr).value;
+            boolean re = false;
+            switch (op) {
+                case "eq":
+                    re = lll == rrr;
+                    break;
+                case "ne":
+                    re = lll != rrr;
+                    break;
+                case "sgt":
+                    re = lll > rrr;
+                    break;
+                case "sge":
+                    re = lll >= rrr;
+                    break;
+                case "slt":
+                    re = lll < rrr;
+                    break;
+                case "sle":
+                    re = lll <= rrr;
+                    break;
+            }
+            return new IRCondConst(re);
+        }
+        return null;
     }
 }
