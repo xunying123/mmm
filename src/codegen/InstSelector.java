@@ -23,20 +23,20 @@ public class InstSelector implements IRVisitor, BuiltIn {
     }
 
     public void visit(IRFileAnalyze node) {
-        node.var.forEach(gg -> {
+        for(var gg : node.var) {
             gg.reg = new AsmVar(gg);
             fileA.var.add((AsmVar) gg.reg);
-        });
-        node.string.values().forEach(str -> {
-            AsmString gs = new AsmString(".str." + (str.num), str.value);
-            fileA.str.add(gs);
-            str.reg = gs;
-        });
-        node.fuc.forEach(func -> {
-            curFunc = new AsmFunction(func.name);
-            fileA.fun.add(curFunc);
-            func.accept(this);
-        });
+        }
+       for(var str : node.string.values()) {
+           AsmString gs = new AsmString(".str." + (str.num), str.value);
+           fileA.str.add(gs);
+           str.reg = gs;
+       }
+       for(var func : node.fuc) {
+           curFunc = new AsmFunction(func.name);
+           fileA.fun.add(curFunc);
+           func.accept(this);
+       }
     }
 
     public void visit(IRFunction node) {
@@ -228,8 +228,9 @@ public class InstSelector implements IRVisitor, BuiltIn {
             AsmReg rr = getReg(node.reg);
             curBlock.add(new AsmLui(rr,new HiLoFun(HiLoFun.Type.hi,na)));
             curBlock.add(new AsmLoad(node.type.size,rr,rr,new HiLoFun(HiLoFun.Type.lo,na)));
+        } else {
+            loadReg(node.type.size, getReg(node.reg), getReg(node.src), 0);
         }
-        loadReg(node.type.size, getReg(node.reg), getReg(node.src), 0);
     }
 
     public void visit(IRRet node) {

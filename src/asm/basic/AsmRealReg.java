@@ -7,16 +7,6 @@ import java.util.HashSet;
 public class AsmRealReg extends AsmReg {
     public String name;
     public int id;
-
-    public AsmRealReg(String na) {
-        this.name = na;
-    }
-
-    public AsmRealReg(String nn, int i) {
-        this.name = nn;
-        this.id = i;
-    }
-
     public static HashMap<String, AsmRealReg> regMap = new HashMap<>() {
         {
             put("zero", new AsmRealReg("zero", 0));
@@ -54,11 +44,6 @@ public class AsmRealReg extends AsmReg {
         }
     };
 
-    @Override
-    public String toString() {
-        return name;
-    }
-
     public static HashSet<AsmReg> caller = new HashSet<>() {
         {
             add(regMap.get("ra"));
@@ -88,8 +73,16 @@ public class AsmRealReg extends AsmReg {
         }
     };
 
-    public static AsmRealReg get(String  name) {
+    public static AsmRealReg get(String name) {
         return regMap.get(name);
     }
 
+    public AsmRealReg(String name, int id) {
+        this.name = name;
+        this.id = id;
+    }
+
+    public String toString() {
+        return name;
+    }
 }
