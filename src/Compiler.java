@@ -40,6 +40,8 @@ public class Compiler {
             new IRBuilder(irFile,globalScope).visit(fileA);
             new GlobalTo(irFile).work();
             new CFG(irFile).work();
+            new DeadCode(irFile).work();
+            new ConstPropagation(irFile).work();
             new MemToReg(irFile).work();
             AsmFile asmFile = new AsmFile();
             new InstSelector(asmFile).visit(irFile);
@@ -86,6 +88,8 @@ public class Compiler {
             new IRBuilder(irFile,globalScope).visit(fileA);
             new GlobalTo(irFile).work();
             new CFG(irFile).work();
+            new DeadCode(irFile).work();
+            new ConstPropagation(irFile).work();
             new MemToReg(irFile).work();
             AsmFile asmFile = new AsmFile();
             new InstSelector(asmFile).visit(irFile);
