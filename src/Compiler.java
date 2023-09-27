@@ -84,7 +84,7 @@ public class Compiler {
             new Checker(globalScope).visit(fileA);
             IRFileAnalyze irFile = new IRFileAnalyze();
             new IRBuilder(irFile,globalScope).visit(fileA);
-            new GlobalTo(irFile).work();
+        //    new GlobalTo(irFile).work();
             new CFG(irFile).work();
             new MemToReg(irFile).work();
             AsmFile asmFile = new AsmFile();
