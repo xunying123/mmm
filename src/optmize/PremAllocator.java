@@ -11,15 +11,15 @@ public class PremAllocator {
     public static final int kCnt = 27;
     AsmRealReg RegSp = AsmRealReg.regMap.get("sp");
 
-    public LinkedHashSet<AsmReg> preColored = new LinkedHashSet<AsmReg>(AsmRealReg.regMap.values());
-    public LinkedHashSet<AsmReg> initial = new LinkedHashSet<AsmReg>();
-    public LinkedList<AsmReg> simplifyWorkList = new LinkedList<AsmReg>();
-    public LinkedList<AsmReg> freezeWorkList = new LinkedList<AsmReg>();
-    public LinkedList<AsmReg> spillWorkList = new LinkedList<AsmReg>();
-    public LinkedHashSet<AsmReg> spilledNodes = new LinkedHashSet<AsmReg>();
-    public LinkedHashSet<AsmReg> coalescedNodes = new LinkedHashSet<AsmReg>();
-    public LinkedHashSet<AsmReg> coloredNodes = new LinkedHashSet<AsmReg>();
-    public Stack<AsmReg> selectStack = new Stack<AsmReg>();
+    public LinkedHashSet<AsmReg> preColored = new LinkedHashSet<>(AsmRealReg.regMap.values());
+    public LinkedHashSet<AsmReg> initial = new LinkedHashSet<>();
+    public LinkedList<AsmReg> simplifyWorkList = new LinkedList<>();
+    public LinkedList<AsmReg> freezeWorkList = new LinkedList<>();
+    public LinkedList<AsmReg> spillWorkList = new LinkedList<>();
+    public LinkedHashSet<AsmReg> spilledNodes = new LinkedHashSet<>();
+    public LinkedHashSet<AsmReg> coalescedNodes = new LinkedHashSet<>();
+    public LinkedHashSet<AsmReg> coloredNodes = new LinkedHashSet<>();
+    public Stack<AsmReg> selectStack = new Stack<>();
 
     public LinkedHashSet<AsmMv> coalescedMoves = new LinkedHashSet<>();
     public LinkedHashSet<AsmMv> constrainedMoves = new LinkedHashSet<>();
@@ -210,7 +210,7 @@ public class PremAllocator {
     }
 
     LinkedHashSet<AsmMv> nodeMoves(AsmReg reg) {
-        LinkedHashSet<AsmMv> ret = new LinkedHashSet<AsmMv>(activeMoves);
+        LinkedHashSet<AsmMv> ret = new LinkedHashSet<>(activeMoves);
         ret.addAll(workListMoves);
         ret.retainAll(moveList.get(reg));
         return ret;

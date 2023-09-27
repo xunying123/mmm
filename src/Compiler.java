@@ -46,11 +46,10 @@ public class Compiler {
             new PremAllocator(asmFile).work();
             new manStack(asmFile).work();
             new Merge(asmFile).work();
-            //new RegAllocator(asmFile).work();
             FileOutputStream irOut = new FileOutputStream("output.ll");
             irOut.write(irFile.toString().getBytes());
             irOut.close();
-            FileOutputStream out = new FileOutputStream("output.s");
+            FileOutputStream out = new FileOutputStream("test.s");
             out.write(asmFile.toString().getBytes());
             out.close();
         } else if (args[0].equals("-fsyntax-only")) {
